@@ -16,5 +16,5 @@ Ease of Testing: The Unit of Work pattern makes it easier to write unit tests fo
 Decoupling: The Unit of Work pattern decouples your business logic from the underlying data access logic, making your code cleaner and easier to maintain.
 
 
-<b>How does the complete method keep track of all the databases (ex. Product, Orders, Customer) that need to be updated in a single transaction?</b>
+<b>How does the complete method keep track of all the databases (ex. Product, Orders, Customer) that need to be updated in a single transaction?</b> <br/>
 We call _unitOfWork.Complete(). This method calls _context.SaveChanges(), which <u>goes through all the entities being tracked by the DbContext, determines what changes have been made, and generates the necessary SQL commands. These commands are then sent to the database in a single transaction.</u> If any part of this transaction fails (for example, due to a concurrency conflict), none of the changes are committed. If the transaction succeeds, all changes are committed.

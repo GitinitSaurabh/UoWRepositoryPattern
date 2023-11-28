@@ -1,4 +1,5 @@
-# Repository Pattern and Unit of Work for Product Entity
+
+# Repository Pattern and Unit of Work for T Entity
 
 ## Overview
 
@@ -32,4 +33,26 @@ The `_unitOfWork.Complete()` method efficiently handles multiple databases (e.g.
 
 If any part of the transaction fails, such as a concurrency conflict, none of the changes are committed. Conversely, if the transaction succeeds, all changes are committed, ensuring data integrity across multiple databases.
 
-By utilizing the Unit of Work pattern, this repository exemplifies a robust and maintainable approach to handling database operations for the Product entity and beyond.
+## Drawbacks of Unit of Work Pattern
+
+While the Unit of Work pattern has many benefits, it also has a few potential drawbacks:
+
+### Complexity
+
+The Unit of Work pattern can add complexity to your code, especially in smaller applications where it might be overkill. If you’re only performing simple CRUD operations, using a Unit of Work might be unnecessary.
+
+### Performance
+
+The Unit of Work pattern keeps track of all the entities that have been retrieved from the database during a single unit of work. If you’re dealing with a large number of entities, this can consume a significant amount of memory and impact performance.
+
+### Debugging
+
+Debugging can be more difficult with the Unit of Work pattern because changes are not persisted to the database until `SaveChanges()` is called. If there’s an error before this method is called, your database won’t reflect any of the changes made in the current unit of work, which can make it harder to track down the source of the error.
+
+### Learning Curve
+
+For developers unfamiliar with the pattern, there can be a learning curve to understanding how it works and when to use it.
+
+### Misuse of DbContext
+
+In Entity Framework, the DbContext itself is a Unit of Work and each DbSet is a Repository. So, adding another layer of Unit of Work and Repository can lead to misuse or misunderstanding of how the DbContext should be used.

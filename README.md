@@ -28,7 +28,7 @@ Decoupling business logic from data access logic enhances code cleanliness and m
 
 ## Transaction Management in Complete Method
 
-The `_unitOfWork.Complete()` method efficiently handles multiple databases (e.g., Product, Orders, Customer) in a single transaction. Under the hood, it calls `_context.SaveChanges()`, which meticulously processes all tracked entities. This involves determining changes, generating SQL commands, and executing them in a single transaction.
+The `_unitOfWork.Complete()` method efficiently handles multiple databases (e.g., Product, Orders, Customer) in a single transaction. Under the hood, it calls `_context.SaveChanges()`, which meticulously processes all tracked entities(goes through all the entities being tracked by the DbContext). This involves determining changes, generating SQL commands, and executing them in a single transaction.
 
 If any part of the transaction fails, such as a concurrency conflict, none of the changes are committed. Conversely, if the transaction succeeds, all changes are committed, ensuring data integrity across multiple databases.
 
